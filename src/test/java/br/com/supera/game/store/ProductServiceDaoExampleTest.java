@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 @RunWith(JUnit4.class)
-public class ProductDaoExampleTest {
+public class ProductServiceDaoExampleTest {
 
     @Rule
     public EntityManagerProvider emProvider = EntityManagerProvider.instance("productDS");  
