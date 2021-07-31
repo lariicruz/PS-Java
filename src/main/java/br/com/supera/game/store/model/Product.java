@@ -1,15 +1,15 @@
 package br.com.supera.game.store.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,7 +19,7 @@ import javax.persistence.Id;
 public class Product {
 
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    public long id;
 
    public String name;
@@ -29,5 +29,9 @@ public class Product {
    public short score;
 
    public String image;
+
+   @JsonIgnore
+   @OneToMany(mappedBy = "product")
+   private List<Item> itens = new ArrayList<>();
 
 }
