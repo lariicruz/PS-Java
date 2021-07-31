@@ -1,14 +1,18 @@
 package br.com.supera.game.store.model;
 
-import br.com.supera.game.store.model.enums.Status;
+import br.com.supera.game.store.model.enums.StatusEnum;
+import br.com.supera.game.store.service.dto.ItemDTO;
+import br.com.supera.game.store.service.dto.ShoppingCartDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -19,15 +23,24 @@ public class ShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Double frete;
-    private Double subtotal;
-    private Double total;
+    private Long id;
+    private BigDecimal shipping;
+    private BigDecimal subtotal;
+    private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusEnum statusEnum;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Item> itens = new ArrayList<>();
+
+    public ShoppingCart(ShoppingCartDTO shoppingCart) {
+        this.id = shoppingCart.getId();
+        this.shipping = shoppingCart.getShipping();
+        this.subtotal = shoppingCart.getSubtotal();
+        this.total = shoppingCart.getTotal();
+        this.statusEnum = shoppingCart.getStatusEnum();
+        this.itens = shoppingCart.getItens().stream().map(item -> new Item(item)).collect(Collectors.toList());
+    }
 
 }

@@ -1,5 +1,6 @@
 package br.com.supera.game.store.model;
 
+import br.com.supera.game.store.service.dto.ItemDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private BigDecimal price;
 
     @ManyToOne
@@ -29,6 +30,12 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Item(ItemDTO item) {
+        this.id = item.getId();
+        this.price = item.getPrice();
+        this.product = new Product(item.getProduct());
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package br.com.supera.game.store.model;
 
+import br.com.supera.game.store.service.dto.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,18 +21,26 @@ public class Product {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   public long id;
+   private Long id;
 
-   public String name;
+   private String name;
 
-   public BigDecimal price;
+   private BigDecimal price;
 
-   public short score;
+   private Short score;
 
-   public String image;
+   private String image;
 
    @JsonIgnore
    @OneToMany(mappedBy = "product")
    private List<Item> itens = new ArrayList<>();
+
+   public Product(ProductDTO product) {
+      this.id = product.getId();
+      this.name = product.getName();
+      this.price = product.getPrice();
+      this.score = product.getScore();
+      this.image = product.getImage();
+   }
 
 }
