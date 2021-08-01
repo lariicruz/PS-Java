@@ -63,9 +63,6 @@
             <optional>true</optional>
         </dependency>
 
-
-
-
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
@@ -76,6 +73,11 @@
                     <artifactId>hamcrest-core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
 
     </dependencies>
