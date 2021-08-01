@@ -122,8 +122,7 @@ Body:
             }
         },
         {
-            "price": 210.00,
-            "product": {
+             "product": {
                 "id": 8,
                 "name": "FIFA 18",
                 "price": 195.39,
@@ -134,7 +133,7 @@ Body:
     ]
 }
 ```
- - Adicionar itens ao carrinho de compra, O usuário poderá adicionar e remover produtos do carrinho: PUT - http://localhost:8080/shopping-cart/1
+ - O usuário poderá adicionar e remover produtos do carrinho através de: PUT - http://localhost:8080/shopping-cart/1
 
 Body
 ```
@@ -143,11 +142,20 @@ Body
     "itens": [
         {
             "product": {
-                "id": 9,
-                "name": "Horizon Zero Dawn",
-                "price": 115.80,
-                "score": 290,
-                "image": "horizon-zero-dawn.png"
+                "id": 2,
+                "name": "Call Of Duty Infinite Warfare",
+                "price": 49.99,
+                "score": 80,
+                "image": "call-of-duty-infinite-warfare.png"
+            }
+        },
+        {
+             "product": {
+                "id": 8,
+                "name": "FIFA 18",
+                "price": 195.39,
+                "score": 325,
+                "image": "fifa-18.pn"
             }
         }
     ]
