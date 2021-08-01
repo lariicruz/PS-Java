@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 public class ItemDTO {
     private Long id;
-    private BigDecimal price;
+    private BigDecimal price; // valor atual do produto no dia da compra
     private ProductDTO product;
 
     public ItemDTO(Item item) {

@@ -18,9 +18,6 @@ public class ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
-    @Autowired
-    private ItemService itemService;
-
     public ShoppingCartDTO findById(Long id) {
         ShoppingCart obj = shoppingCartRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Registro não encontrado"));
         return new ShoppingCartDTO(obj);
@@ -36,11 +33,7 @@ public class ShoppingCartService {
         calcShoppingCart(shoppingCartDTO);
 
         ShoppingCart obj = new ShoppingCart(shoppingCartDTO);
-
         obj = shoppingCartRepository.saveAndFlush(obj);
-
-        itemService.saveAll(shoppingCartDTO.getItens(), obj);
-
         return obj.getId();
 
     }
@@ -50,10 +43,7 @@ public class ShoppingCartService {
         calcShoppingCart(shoppingCartDTO);
 
         ShoppingCart obj = new ShoppingCart(shoppingCartDTO);
-        obj = shoppingCartRepository.saveAndFlush(obj);
-
-        obj.setItens(itemService.saveAll(shoppingCartDTO.getItens(), obj));
-        return new ShoppingCartDTO(obj);
+        return new ShoppingCartDTO(shoppingCartRepository.saveAndFlush(obj));
     }
 
     public void deletecreateShoppingCart(Long id) {
@@ -63,11 +53,20 @@ public class ShoppingCartService {
 
     private void calcShoppingCart(ShoppingCartDTO shoppingCartDTO) {
         shoppingCartDTO.getItens().stream().forEach(obj -> {
-            if (obj.getPrice().compareTo(new BigDecimal(250.0)) < 0) {
+
+            // verificação se o frete será gratuito
+            if (obj.getProduct().getPrice().compareTo(new BigDecimal(250.0)) < 0) {
                 shoppingCartDTO.setShipping(shoppingCartDTO.getShipping().add(BigDecimal.TEN));
             }
+
+            // soma o valor dos produtos
             shoppingCartDTO.setSubtotal(shoppingCartDTO.getSubtotal().add(obj.getProduct().getPrice()));
+
+            // coloca o valor atual do produto
+            obj.setPrice(obj.getProduct().getPrice());
         });
+
+        // soma o valor do frete com o valor da soma dos produtos
         shoppingCartDTO.setTotal(shoppingCartDTO.getTotal().add(shoppingCartDTO.getSubtotal()).add(shoppingCartDTO.getShipping()));
     }
 

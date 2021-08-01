@@ -25,7 +25,7 @@ public class Product {
 
    private String name;
 
-   private BigDecimal price;
+   private BigDecimal price; // valor atual do produto no dia da compra
 
    private Short score;
 

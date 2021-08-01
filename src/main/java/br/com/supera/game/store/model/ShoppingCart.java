@@ -31,7 +31,8 @@ public class ShoppingCart {
     @Enumerated(EnumType.STRING)
     private StatusEnum statusEnum;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private List<Item> itens = new ArrayList<>();
 
     public ShoppingCart(ShoppingCartDTO shoppingCart) {
