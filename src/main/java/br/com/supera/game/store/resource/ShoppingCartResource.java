@@ -42,7 +42,7 @@ public class ShoppingCartResource {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletecreateShoppingCart(@PathVariable Long id) {
-        shoppingCartService.deletecreateShoppingCart(id);
+        shoppingCartService.deleteShoppingCart(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -46,7 +46,7 @@ public class ShoppingCartService {
         return new ShoppingCartDTO(shoppingCartRepository.saveAndFlush(obj));
     }
 
-    public void deletecreateShoppingCart(Long id) {
+    public void deleteShoppingCart(Long id) {
         findById(id);
         shoppingCartRepository.deleteById(id);
     }
