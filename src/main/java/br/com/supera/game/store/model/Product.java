@@ -23,7 +23,6 @@ public class Product {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-   //@Column(name = "name_product")
    private String name;
 
    private BigDecimal price; // valor atual do produto no dia da compra
